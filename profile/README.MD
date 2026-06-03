@@ -54,53 +54,9 @@
 
 ## 🏗️ 시스템 아키텍처
 
-```mermaid
-flowchart TB
-    subgraph CLIENT["💻 클라이언트"]
-        direction LR
-        APP["📱 Digda-app<br/>Flutter · Android/iOS"]
-        ADMIN["🖥️ digda-admin<br/>Vue 3 · Vite"]
-    end
-
-    subgraph BACKEND["🍙 Digda-server · Kotlin · Spring Boot"]
-        direction LR
-        API["REST API<br/>인증 · 도메인 · 관리자"]
-        SCHED["스케줄러 · 배치<br/>리마인더 · 정리"]
-    end
-
-    subgraph DATA["🗄️ 데이터"]
-        direction LR
-        DB[("MySQL")]
-        REDIS[("Redis")]
-    end
-
-    subgraph EXTERNAL["🌐 외부 서비스"]
-        direction LR
-        OAUTH["카카오·네이버·Apple"]
-        KAKAOLOCAL["카카오 로컬 API"]
-        FCM[("Firebase FCM")]
-        S3[("AWS S3")]
-    end
-
-    APP -->|HTTPS REST| API
-    ADMIN -->|HTTPS REST| API
-    APP -->|소셜 로그인| OAUTH
-    APP -->|장소 검색| KAKAOLOCAL
-    API --> DB
-    API -->|토큰·캐시| REDIS
-    API -->|소셜 검증| OAUTH
-    API -->|이미지| S3
-    API -->|푸시| FCM
-    SCHED --> API
-    FCM -.알림.-> APP
-
-    classDef client fill:#FFE2E2,stroke:#FF6B6B,stroke-width:1.5px,color:#7A1F1F;
-    classDef backend fill:#E6F4EA,stroke:#34A853,stroke-width:1.5px,color:#114B22;
-    classDef data fill:#E8F0FE,stroke:#4285F4,stroke-width:1.5px,color:#0B3D91;
-    classDef ext fill:#FFF4E5,stroke:#F9A825,stroke-width:1.5px,color:#7A4F00;
-    class APP,ADMIN client; class API,SCHED backend;
-    class DB,REDIS data; class OAUTH,KAKAOLOCAL,FCM,S3 ext;
-```
+<div align="center">
+  <img src="architecture.svg" width="100%" alt="디그팟 시스템 아키텍처" />
+</div>
 
 ---
 
